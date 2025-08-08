@@ -1,8 +1,16 @@
+import os
 from pyspark.sql import SparkSession
 from pyspark.ml.feature import StringIndexer, VectorAssembler
 from pyspark.ml.classification import RandomForestClassifier, NaiveBayes, DecisionTreeClassifier
 from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 from pyspark.ml import Pipeline
+
+# Resolve base directory of this script
+base_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Construct full input and output paths
+input_path = f"file://{os.path.join(base_dir, 'titanic.csv')}"
+output_path = os.path.join(base_dir, "output.txt")
 
 # Step 1: Initialize Spark session
 spark = SparkSession.builder \
@@ -10,8 +18,7 @@ spark = SparkSession.builder \
     .getOrCreate()
 
 # Step 2: Load dataset
-data_path = "file:///home/ubuntu/spark_jobs/loan_rf/loan_data.csv"
-df = spark.read.csv(data_path, header=True, inferSchema=True)
+df = spark.read.csv(input_path, header=True, inferSchema=True)
 
 # Step 3: Dropping unnecessary columns
 df = df.drop("Education", "Self_Employed", "Loan_ID")
@@ -70,6 +77,7 @@ with open(output_path, "w") as f:
 
 # Step 12: Stop Spark session
 spark.stop()
+
 
 
 
