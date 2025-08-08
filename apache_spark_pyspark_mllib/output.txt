@@ -1,0 +1,6 @@
+
+Random Forest Accuracy: 0.7500
+
+Naive Bayes Accuracy: 0.5132
+
+Decision Tree Accuracy: 0.7368
