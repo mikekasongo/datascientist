@@ -66,7 +66,7 @@ evaluator = MulticlassClassificationEvaluator(labelCol="label", predictionCol="p
 
 # Step 11: Train, predict, evaluate, and log
 with open(output_path, "w") as f:
-    for name, classifier in models.items():
+    for classifier in models.items():
         start_time = time.time()
 
         pipeline = Pipeline(stages=preprocessing_stages + [classifier])
@@ -76,9 +76,10 @@ with open(output_path, "w") as f:
         accuracy = evaluator.evaluate(predictions)
         duration = time.time() - start_time
 
-        result = f"{name} Accuracy: {accuracy:.4f} | Time: {duration:.2f}s"
+        result = f"{classifier} Accuracy: {accuracy:.4f} | Time: {duration:.2f}s"
         print(result)
         f.write(f"\n{result}\n")
 
 # Step 12: Stop Spark session
 spark.stop()
+
