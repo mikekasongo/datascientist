@@ -30,7 +30,7 @@ df = df.dropna()
 gender_indexer = StringIndexer(inputCol="Gender", outputCol="Gender_Indexed")
 married_indexer = StringIndexer(inputCol="Married", outputCol="Married_Indexed")
 property_indexer = StringIndexer(inputCol="Property_Area", outputCol="Property_Area_Indexed")
-Loan_Status_indexer = StringIndexer(inputCol="Loan_Status", outputCol="Loan_Status_Indexed")
+loan_Status_indexer = StringIndexer(inputCol="Loan_Status", outputCol="Loan_Status_Indexed")
 
 # Step 6: Assemble features
 assembler = VectorAssembler(
@@ -47,7 +47,7 @@ preprocessing_stages = [
     gender_indexer,
     married_indexer,
     property_indexer,
-    label_indexer,
+    loan_Status_indexer,
     assembler
 ]
 
@@ -77,6 +77,7 @@ with open(output_path, "w") as f:
 
 # Step 12: Stop Spark session
 spark.stop()
+
 
 
 
